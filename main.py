@@ -27,5 +27,4 @@ for url in url_list:
         titel_content = title['content']
         line_name = titel_content.split()
         if not "に関する情報はありません" in description_content:
-            print(line_name[0], ":")
-            print(description_content)
+            send_slack(line_name[0], ":", description_content)
