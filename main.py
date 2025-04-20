@@ -20,6 +20,7 @@ headers = {
     "Authorization": f"Bearer {slack_oauth_token}",
     "Content-type": "application/json"
 }
+notifications = []
 
 for url in dia_url_list:
     # HTMLの取得(GET)
@@ -39,11 +40,13 @@ for url in dia_url_list:
         titel_content = title['content']
         line_name = titel_content.split()
         if "に関する情報はありません" not in description_content:
-            data = {
-                "channel": "#info-train",
-                "text": f":train:{line_name[0]}\n {description_content}"
-            }
-            response = requests.post(SLACK_URL, headers=headers, data=json.dumps(data), timeout=10)
+            notifications.append(f":train:{line_name[0]}\n {description_content}")
+if notifications:
+    data = {
+        "channel": "#info-train",
+        "text": "\n\n".join(notifications)
+    }
+    response = requests.post(SLACK_URL, headers=headers, data=json.dumps(data), timeout=10)
 
-            if response.status_code != 200:
-                print(f"Slack通知失敗: {response.status_code}, {response.text}")
+    if response.status_code != 200:
+        print(f"Slack通知失敗: {response.status_code}, {response.text}")
