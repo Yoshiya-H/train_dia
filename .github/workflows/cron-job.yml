@@ -20,7 +20,7 @@ jobs:
             - name: Create auth.json from secret
               run: echo "$AUTH_JSON" > auth.json
               env:
-                AUTH_JSON: ${{ secrets.AUTH_JSON }}          
+                AUTH_JSON: ${{ secrets.SLACK_AUTH }}          
 
             - name: Install dependencies
               run: |
