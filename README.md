@@ -4,6 +4,7 @@
 
 ## Slack認証情報
 ### auth.json
+# GitHub Secretsに認証情報を登録
 
 ```
 {
